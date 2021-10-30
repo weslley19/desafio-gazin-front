@@ -60,31 +60,27 @@ export function NewDeveloperModal({ isOpen, onRequestClose }: NewDeveloperModalP
 
         <h2>Cadastrar desenvolvedor</h2>
         <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-        <input type="text" placeholder="Sexo" value={sexo} onChange={(e) => setSexo(e.target.value)} />
+        <input type="number" placeholder="Idade" value={age} onChange={(e) => setAge(Number(e.target.value))} />
 
-        {/* <RegisterDeveloperContainer>
+        <RegisterDeveloperContainer>
           <RadioBox
             type="button"
-            onClick={() => setType('deposit')}
-            isActive={type === 'deposit'}
-            isActiveColor='green'
+            onClick={() => setSexo('M')}
           >
-            <img src={incomeImg} alt="Entrada" />
-            <span>Entrada</span>
+            <img src={incomeImg} alt="Masculino" />
+            <span>Masculino</span>
           </RadioBox>
           <RadioBox
             type="button"
-            onClick={() => setType('withdraw')}
-            isActive={type === 'withdraw'}
-            isActiveColor='red'
+            onClick={() => setSexo('F')}
           >
-            <img src={outcomeImg} alt="Saída" />
-            <span>Saída</span>
+            <img src={outcomeImg} alt="Feminino" />
+            <span>Feminino</span>
           </RadioBox>
-        </RegisterDeveloperContainer> */}
+        </RegisterDeveloperContainer>
 
-        <input type="text" placeholder="Idade" value={age} onChange={(e) => setAge(Number(e.target.value))} />
         <input type="text" placeholder="Hobby" value={hobby} onChange={(e) => setHobby(e.target.value)} />
+        <input type="text" placeholder="Data de aniversário" value={birthdate} onChange={(e) => setBirthdate(e.target.value)} />
         <button type="submit">Cadastrar</button>
       </Container>
     </Modal>

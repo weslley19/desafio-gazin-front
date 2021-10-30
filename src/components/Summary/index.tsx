@@ -15,18 +15,20 @@ export function Summary() {
     <Container>
       <div>
         <header>
-          <p>Entradas</p>
+          <p>Desenvolvedores</p>
           <img src={incomeImg} alt="Entradas" />
         </header>
         <strong>
+          20
         </strong>
       </div>
       <div>
         <header>
-          <p>Saídas</p>
+          <p>Desenvolvedores excluídos</p>
           <img src={outcomeImg} alt="Saídas" />
         </header>
         <strong>
+          - 3
         </strong>
       </div>
       <div>
@@ -35,6 +37,7 @@ export function Summary() {
           <img src={totalImg} alt="Total" />
         </header>
         <strong>
+          17
         </strong>
       </div>
     </Container>

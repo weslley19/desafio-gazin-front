@@ -9,10 +9,11 @@ export function DevelopersTable() {
       <table>
         <thead>
           <tr>
-            <th>Título</th>
-            <th>Preço</th>
-            <th>Categoria</th>
-            <th>Data</th>
+            <th>Nome</th>
+            <th>Sexo</th>
+            <th>Idade</th>
+            <th>Hobby</th>
+            <th>Data de aniversário</th>
           </tr>
         </thead>
         <tbody>
