@@ -3,7 +3,7 @@ import { DeveloperProvider } from './hooks/useTransactions';
 
 import { Header } from './components/Header';
 import { Dashboard } from './components/Dashboard';
-import { NewDeveloperModal } from './components/NewTransactionModal';
+import { NewDeveloperModal } from './components/NewDeveloperModal';
 
 import { GlobalStyle } from './styles/global';
 
