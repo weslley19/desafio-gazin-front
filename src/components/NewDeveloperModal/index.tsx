@@ -59,8 +59,8 @@ export function NewDeveloperModal({ isOpen, onRequestClose }: NewDeveloperModalP
         </button>
 
         <h2>Cadastrar desenvolvedor</h2>
-        <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-        <input type="number" placeholder="Idade" value={age} onChange={(e) => setAge(Number(e.target.value))} />
+        <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
+        <input type="number" placeholder="Idade" value={age} onChange={(e) => setAge(Number(e.target.value))} required />
 
         <RegisterDeveloperContainer>
           <RadioBox
@@ -79,8 +79,8 @@ export function NewDeveloperModal({ isOpen, onRequestClose }: NewDeveloperModalP
           </RadioBox>
         </RegisterDeveloperContainer>
 
-        <input type="text" placeholder="Hobby" value={hobby} onChange={(e) => setHobby(e.target.value)} />
-        <input type="text" placeholder="Data de aniversário" value={birthdate} onChange={(e) => setBirthdate(e.target.value)} />
+        <input type="text" placeholder="Hobby" value={hobby} onChange={(e) => setHobby(e.target.value)} required />
+        <input type="date" placeholder="Data de aniversário" value={birthdate} onChange={(e) => setBirthdate(e.target.value)} required />
         <button type="submit">Cadastrar</button>
       </Container>
     </Modal>

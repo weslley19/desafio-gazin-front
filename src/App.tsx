@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { DeveloperProvider } from './hooks/useTransactions';
+import { ToastContainer } from 'react-toastify';
 
 import { Header } from './components/Header';
 import { Dashboard } from './components/Dashboard';
@@ -20,6 +21,8 @@ export function App() {
 
   return (
     <DeveloperProvider>
+      <ToastContainer autoClose={3000} />
+
       <Header onOpenNewDeveloperModal={handleOpenNewDeveloperModal} />
       <Dashboard />
 

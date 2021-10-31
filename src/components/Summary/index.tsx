@@ -9,26 +9,26 @@ import { Container } from "./styles";
 export function Summary() {
   const { developers } = useTransactions();
 
-  console.log(developers);
+  const developersActives = developers.filter(developer => developer.active === true);
 
   return (
     <Container>
       <div>
         <header>
-          <p>Desenvolvedores</p>
+          <p>Desenvolvedores ativos</p>
           <img src={incomeImg} alt="Entradas" />
         </header>
         <strong>
-          20
+          { developersActives.length }
         </strong>
       </div>
       <div>
         <header>
-          <p>Desenvolvedores excluídos</p>
+          <p>Desenvolvedores inativos</p>
           <img src={outcomeImg} alt="Saídas" />
         </header>
         <strong>
-          - 3
+          { developers.length - developersActives.length }
         </strong>
       </div>
       <div>
@@ -37,7 +37,7 @@ export function Summary() {
           <img src={totalImg} alt="Total" />
         </header>
         <strong>
-          17
+          { developers.length }
         </strong>
       </div>
     </Container>
