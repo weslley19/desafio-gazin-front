@@ -2,6 +2,7 @@ import { createContext, ReactNode, useContext, useEffect, useState } from 'react
 import { toast } from 'react-toastify';
 import {
   ADD_NEW_DEVELOPER,
+  REMOVE_DEVELOPER,
   // REMOVE_DEVELOPER,
   // UPDATE_DEVELOPER,
   // LOGOUT,
@@ -25,6 +26,7 @@ interface Developer {
 }
 
 type DeveloperInput = Omit<Developer, 'id' | 'createdAt' | 'updatedAt' | 'active'>;
+type DeveloperDelete = Omit<Developer, 'name' | 'sexo' | 'age' | 'hobby' | 'birthdate' | 'createdAt' | 'updatedAt' | 'active'>;
 
 interface DeveloperProviderProps {
   children: ReactNode;
@@ -33,6 +35,7 @@ interface DeveloperProviderProps {
 interface DeveloperContextData {
   developers: Developer[];
   createDeveloper: (developer: DeveloperInput) => Promise<void>;
+  deleteDeveloper: (developer: DeveloperDelete) => Promise<void>;
 }
 
 export const DeveloperContext = createContext<DeveloperContextData>(
@@ -42,11 +45,15 @@ export const DeveloperContext = createContext<DeveloperContextData>(
 export function DeveloperProvider({ children }: DeveloperProviderProps) {
   const [developers, setDevelopers] = useState<Developer[]>([]);
 
-  useEffect(() => {
+  const getDevelopers = () => {
     api.get('developers/')
       .then((response: any) => {
         setDevelopers(response.data)
-      })
+      });
+  }
+
+  useEffect(() => {
+    getDevelopers();
   }, []);
 
   const createDeveloper = async (DevelopersInput: DeveloperInput) => {
@@ -58,7 +65,7 @@ export function DeveloperProvider({ children }: DeveloperProviderProps) {
     });
 
     if (response.status !== 201) {
-      toast.error(SYSTEM_INSTABILITY, {theme: 'colored'});
+      toast.error(SYSTEM_INSTABILITY, { theme: 'colored' });
       return;
     }
 
@@ -70,12 +77,25 @@ export function DeveloperProvider({ children }: DeveloperProviderProps) {
     ]);
 
     if (response.status === 201) {
-      toast.success(ADD_NEW_DEVELOPER, {theme: 'colored'});
+      toast.success(ADD_NEW_DEVELOPER, { theme: 'colored' });
     }
   }
 
+  const deleteDeveloper = async (DevelopersDelete: DeveloperDelete) => {
+    const response: any = await api.delete(`developers/${DevelopersDelete}/`);
+
+    if (response.status === 204) {
+      toast.success(REMOVE_DEVELOPER, { theme: 'colored' });
+    } else {
+      toast.error(SYSTEM_INSTABILITY, { theme: 'colored' });
+      return;
+    }
+
+    getDevelopers();
+  }
+
   return (
-    <DeveloperContext.Provider value={{ developers, createDeveloper }}>
+    <DeveloperContext.Provider value={{ developers, createDeveloper, deleteDeveloper }}>
       {children}
     </DeveloperContext.Provider>
   );

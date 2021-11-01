@@ -1,12 +1,15 @@
+import React from "react";
 import { useTransactions } from "../../hooks/useTransactions";
 import { FaUserEdit, FaSearchPlus, FaRegTrashAlt } from 'react-icons/fa';
 
 import { Container } from "./styles";
 
 export function DevelopersTable() {
-  const { developers } = useTransactions();
+  const { developers, deleteDeveloper } = useTransactions();
 
-  console.log(developers)
+  const handleDeleteDeveloper = async (id: any) => {
+    await deleteDeveloper(id);
+  }
 
   return (
     <Container>
@@ -31,9 +34,13 @@ export function DevelopersTable() {
                 <td>{developer.hobby}</td>
                 <td>{new Intl.DateTimeFormat('pt-BR').format(new Date(developer.birthdate))}</td>
                 <td className="">
-                  <a href="http://localhost:3000/"><FaSearchPlus color="#000" /></a> &nbsp;&nbsp;
-                  <a href="http://localhost:3000/"><FaUserEdit color="#000" /></a> &nbsp;&nbsp;
-                  <a href="http://localhost:3000/"><FaRegTrashAlt color="#be0404" /></a>
+                  <FaSearchPlus color="#000" /> &nbsp;&nbsp;
+                  <FaUserEdit color="#000" /> &nbsp;&nbsp;
+                  <span
+                    onClick={(event: React.MouseEvent) => {handleDeleteDeveloper(developer.id)}}
+                  >
+                    <FaRegTrashAlt color="#be0404" />
+                  </span>
                 </td>
               </tr>
             ))
