@@ -1,5 +1,5 @@
 import React from "react";
-import { useTransactions } from "../../hooks/useTransactions";
+import { useTransactions } from "../../hooks/useDevelopers";
 import { FaUserEdit, FaSearchPlus, FaRegTrashAlt } from 'react-icons/fa';
 
 import { Container } from "./styles";

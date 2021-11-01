@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { DeveloperProvider } from './hooks/useTransactions';
+import { DeveloperProvider } from './hooks/useDevelopers';
 import { ToastContainer } from 'react-toastify';
 
 import { Header } from './components/Header';

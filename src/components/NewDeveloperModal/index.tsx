@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { useTransactions } from '../../hooks/useTransactions';
+import { useTransactions } from '../../hooks/useDevelopers';
 import Modal from 'react-modal';
 
 import closeImg from '../../assets/close.svg';
