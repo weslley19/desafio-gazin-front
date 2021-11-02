@@ -2,10 +2,8 @@ import { useTransactions } from '../../hooks/useDevelopers';
 import Modal from 'react-modal';
 
 import closeImg from '../../assets/close.svg';
-import incomeImg from '../../assets/income.svg';
-import outcomeImg from '../../assets/outcome.svg';
 
-import { Container, RegisterDeveloperContainer, RadioBox } from './styles';
+import { Container, Label } from './styles';
 
 Modal.setAppElement('#root');
 
@@ -33,67 +31,37 @@ export function ViewDeveloperModal({ isOpen, onRequestClose }: ViewDeveloperModa
         </button>
 
         <h2>Dados do desenvolvedor</h2>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Name"
-          value={developer.name}
-          required
-        />
 
-        <input
-          type="number"
-          id="age"
-          name="age"
-          placeholder="Idade"
-          value={developer.age}
-          required
-        />
+        <div>
+          <Label htmlFor="name">Nome: </Label>
+          <span id="name">{developer.name}</span>
+        </div>
 
-        <RegisterDeveloperContainer>
-          <RadioBox
-            type="button"
-          >
-            <img src={incomeImg} alt="Masculino" />
-            <span>Masculino</span>
-          </RadioBox>
-          <RadioBox
-            type="button"
-          >
-            <img src={outcomeImg} alt="Feminino" />
-            <span>Feminino</span>
-          </RadioBox>
-        </RegisterDeveloperContainer>
+        <div>
+          <Label htmlFor="sexo">Sexo: </Label>
+          <span id="sexo">{developer.sexo === 'M' ? 'Masculino' : 'Feminino'}</span>
+        </div>
 
-        <input
-          type="text"
-          id="hooby"
-          name="hobby"
-          placeholder="Hobby"
-          value={developer.hobby}
-          required
-        />
+        <div>
+          <Label htmlFor="age">Idade: </Label>
+          <span id="age">{`${developer.age} anos`}</span>
+        </div>
 
-        <input
-          type="date"
-          id="birthdate"
-          name="birthdate"
-          placeholder="Data de aniversário"
-          value={developer.birthdate}
-          required
-        />
+        <div>
+          <Label htmlFor="hobby">hobby: </Label>
+          <span id="hobby">{developer.hobby}</span>
+        </div>
 
-        <input
-          type="checkbox"
-          id="active"
-          name="active"
-          placeholder="Ativo?"
-          checked={developer.active ? true : false}
-          required
-        />
+        <div>
+          <Label htmlFor="birthdate">Data de aniversário: </Label>
+          <span id="birthdate">{new Intl.DateTimeFormat('pt-BR').format(new Date(developer.birthdate))}</span>
+        </div>
 
-        <button type="submit">Fechar</button>
+        <div>
+          <Label htmlFor="active">Ativo?: </Label>
+          <span id="active">{developer.active ? 'Sim' : 'Não'}</span>
+        </div>
+
       </Container>
     </Modal>
   );
