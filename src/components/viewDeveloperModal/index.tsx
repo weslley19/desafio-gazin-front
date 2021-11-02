@@ -54,7 +54,7 @@ export function ViewDeveloperModal({ isOpen, onRequestClose }: ViewDeveloperModa
 
         <div>
           <Label htmlFor="birthdate">Data de aniversário: </Label>
-          <span id="birthdate">{new Intl.DateTimeFormat('pt-BR').format(new Date(developer.birthdate))}</span>
+          <span id="birthdate">{developer.birthdate}</span>
         </div>
 
         <div>
