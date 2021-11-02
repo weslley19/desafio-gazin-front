@@ -2,11 +2,15 @@ import { Summary } from "../Summary";
 import { DevelopersTable } from "../DevelopersTable";
 import { Container } from "./styles";
 
-export function Dashboard() {
+interface DashboardProps {
+  onOpenEditDeveloperModal: () => void;
+}
+
+export function Dashboard({ onOpenEditDeveloperModal }: DashboardProps) {
   return (
     <Container>
       <Summary />
-      <DevelopersTable />
+      <DevelopersTable onOpenEditDeveloperModal={onOpenEditDeveloperModal} />
     </Container>
   );
 }

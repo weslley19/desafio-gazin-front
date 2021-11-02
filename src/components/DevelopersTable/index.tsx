@@ -4,8 +4,16 @@ import { FaUserEdit, FaSearchPlus, FaRegTrashAlt } from 'react-icons/fa';
 
 import { Container } from "./styles";
 
-export function DevelopersTable() {
-  const { developers, deleteDeveloper } = useTransactions();
+interface DevelopersaTableProps {
+  onOpenEditDeveloperModal: (id: any) => void;
+}
+
+export function DevelopersTable({ onOpenEditDeveloperModal }: DevelopersaTableProps) {
+  const { developers, deleteDeveloper, findDeveloperId } = useTransactions();
+
+  const handleEditDeveloperModal = async (id: any) => {
+    await findDeveloperId(id);
+  }
 
   const handleDeleteDeveloper = async (id: any) => {
     await deleteDeveloper(id);
@@ -35,7 +43,11 @@ export function DevelopersTable() {
                 <td>{new Intl.DateTimeFormat('pt-BR').format(new Date(developer.birthdate))}</td>
                 <td className="">
                   <FaSearchPlus color="#000" /> &nbsp;&nbsp;
-                  <FaUserEdit color="#000" /> &nbsp;&nbsp;
+                  <span
+                    onClick={() => {onOpenEditDeveloperModal(developer.id)}}
+                  >
+                    <span onClick={() => handleEditDeveloperModal(developer.id)}><FaUserEdit color="#000" /> &nbsp;&nbsp;</span>
+                  </span>
                   <span
                     onClick={(event: React.MouseEvent) => {handleDeleteDeveloper(developer.id)}}
                   >

@@ -4,7 +4,7 @@ import {
   ADD_NEW_DEVELOPER,
   REMOVE_DEVELOPER,
   // REMOVE_DEVELOPER,
-  // UPDATE_DEVELOPER,
+  UPDATE_DEVELOPER,
   // LOGOUT,
   SYSTEM_INSTABILITY
 } from '../constants/messages';
@@ -26,7 +26,9 @@ interface Developer {
 }
 
 type DeveloperInput = Omit<Developer, 'id' | 'createdAt' | 'updatedAt' | 'active'>;
+type DeveloperEdit = Omit<Developer, 'id' | 'createdAt' | 'updatedAt'>;
 type DeveloperDelete = Omit<Developer, 'name' | 'sexo' | 'age' | 'hobby' | 'birthdate' | 'createdAt' | 'updatedAt' | 'active'>;
+type DeveloperInfo = Omit<Developer, 'name' | 'sexo' | 'age' | 'hobby' | 'birthdate' | 'createdAt' | 'updatedAt' | 'active'>;
 
 interface DeveloperProviderProps {
   children: ReactNode;
@@ -34,8 +36,11 @@ interface DeveloperProviderProps {
 
 interface DeveloperContextData {
   developers: Developer[];
+  developer: Developer;
   createDeveloper: (developer: DeveloperInput) => Promise<void>;
+  editDeveloper: (developer: DeveloperEdit) => Promise<void>;
   deleteDeveloper: (developer: DeveloperDelete) => Promise<void>;
+  findDeveloperId: (developer: DeveloperInfo) => Promise<void>;
 }
 
 export const DeveloperContext = createContext<DeveloperContextData>(
@@ -44,6 +49,7 @@ export const DeveloperContext = createContext<DeveloperContextData>(
 
 export function DeveloperProvider({ children }: DeveloperProviderProps) {
   const [developers, setDevelopers] = useState<Developer[]>([]);
+  const [developer, setDeveloper] = useState<Developer>({} as Developer);
 
   const getDevelopers = () => {
     api.get('developers/')
@@ -55,6 +61,31 @@ export function DeveloperProvider({ children }: DeveloperProviderProps) {
   useEffect(() => {
     getDevelopers();
   }, []);
+
+  const findDeveloperId = async (DeveloperId: DeveloperInfo) => {
+    const response: any = await api.get(`/developers/${DeveloperId}`);
+
+    setDeveloper(
+      response.data
+    );
+  }
+
+  const editDeveloper = async (DeveloperEdit: DeveloperEdit) => {
+    const response = await api.put(`/developers/${developer.id}/`, {
+      ...DeveloperEdit
+    });
+
+    if (response.status !== 200) {
+      toast.error(SYSTEM_INSTABILITY, { theme: 'colored' });
+      return;
+    }
+
+    if (response.status === 200) {
+      toast.success(UPDATE_DEVELOPER, { theme: 'colored' });
+    }
+
+    getDevelopers();
+  }
 
   const createDeveloper = async (DevelopersInput: DeveloperInput) => {
     const response: any = await api.post('/developers/', {
@@ -95,7 +126,7 @@ export function DeveloperProvider({ children }: DeveloperProviderProps) {
   }
 
   return (
-    <DeveloperContext.Provider value={{ developers, createDeveloper, deleteDeveloper }}>
+    <DeveloperContext.Provider value={{ developers, developer, createDeveloper, editDeveloper, deleteDeveloper, findDeveloperId }}>
       {children}
     </DeveloperContext.Provider>
   );
