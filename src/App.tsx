@@ -6,12 +6,14 @@ import { Header } from './components/Header';
 import { Dashboard } from './components/Dashboard';
 import { NewDeveloperModal } from './components/NewDeveloperModal';
 import { EditDeveloperModal } from './components/EditDeveloperModal';
+import { ViewDeveloperModal } from './components/viewDeveloperModal';
 
 import { GlobalStyle } from './styles/global';
 
 export function App() {
   const [isNewDeveloperModalOpen, setIsNewDeveloperModalOpen] = useState(false);
   const [isEditDeveloperModalOpen, setIsEditDeveloperModalOpen] = useState(false);
+  const [isViewDeveloperModalOpen, setIsViewDeveloperModalOpen] = useState(false);
 
   const handleOpenNewDeveloperModal = () => {
     setIsNewDeveloperModalOpen(true);
@@ -29,12 +31,20 @@ export function App() {
     setIsEditDeveloperModalOpen(false);
   }
 
+  const handleOpenViewDeveloperModal = () => {
+    setIsViewDeveloperModalOpen(true);
+  }
+
+  const handleCloseViewDeveloperModal = () => {
+    setIsViewDeveloperModalOpen(false);
+  }
+
   return (
     <DeveloperProvider>
       <ToastContainer autoClose={3000} />
 
       <Header onOpenNewDeveloperModal={handleOpenNewDeveloperModal} />
-      <Dashboard onOpenEditDeveloperModal={handleOpenEditDeveloperModal} />
+      <Dashboard onOpenEditDeveloperModal={handleOpenEditDeveloperModal} onOpenViewDeveloperModal={handleOpenViewDeveloperModal} />
 
       <NewDeveloperModal
         isOpen={isNewDeveloperModalOpen}
@@ -44,6 +54,11 @@ export function App() {
       <EditDeveloperModal
         isOpen={isEditDeveloperModalOpen}
         onRequestClose={handleCloseEditDeveloperModal}
+      />
+
+      <ViewDeveloperModal
+        isOpen={isViewDeveloperModalOpen}
+        onRequestClose={handleCloseViewDeveloperModal}
       />
 
       <GlobalStyle />

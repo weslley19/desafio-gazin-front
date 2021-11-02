@@ -4,13 +4,14 @@ import { Container } from "./styles";
 
 interface DashboardProps {
   onOpenEditDeveloperModal: () => void;
+  onOpenViewDeveloperModal: () => void;
 }
 
-export function Dashboard({ onOpenEditDeveloperModal }: DashboardProps) {
+export function Dashboard({ onOpenEditDeveloperModal, onOpenViewDeveloperModal }: DashboardProps) {
   return (
     <Container>
       <Summary />
-      <DevelopersTable onOpenEditDeveloperModal={onOpenEditDeveloperModal} />
+      <DevelopersTable onOpenEditDeveloperModal={onOpenEditDeveloperModal} onOpenViewDeveloperModal={onOpenViewDeveloperModal} />
     </Container>
   );
 }
